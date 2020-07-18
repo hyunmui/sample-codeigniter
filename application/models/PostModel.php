@@ -3,6 +3,8 @@ defined('BASEPATH') || exit('No direct script access allowed');
 
 class PostModel extends CI_Model
 {
+    const TABLE_NAME = 'Posts';
+
     public $id;
     public $post_type;
     public $title;
@@ -14,14 +16,25 @@ class PostModel extends CI_Model
 
     public function getOne($id)
     {
-        $query = $this->db->get_where('Posts', array('id' => $id), 1);
+        $query = $this->db->get_where(self::TABLE_NAME, array('id' => $id), 1);
         return $query->row(0, 'PostModel');
     }
 
-    public function findByKeyword($keyword)
+    public function findPosts($searchType, $searchKeyword, $pageIndex, $pageSize)
     {
-        $query = $this->db->query('exec FindPosts ?', array('keyword' => $keyword));
+        // TODO: 미사용 파라미터 조건 추가
+        $query = $this->db->query('exec FindPosts ?', array($searchKeyword));
         return $query->result();
+    }
+
+    public function add()
+    {
+        $this->db->insert(self::TABLE_NAME, $this);
+    }
+
+    public function update()
+    {
+        $this->db->update(self::TABLE_NAME, $this);
     }
 }
 

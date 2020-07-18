@@ -11,16 +11,18 @@
 		"source": "https://github.com/bcit-ci/CodeIgniter"
 	},
 	"require": {
-		"php": ">=5.3.7",
-		"twitter/bootstrap": "^4.5",
-		"fortawesome/font-awesome": "^4.7",
-		"components/jquery": "^3.5"
+		"php": ">=5.3.7"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
 	},
+	"autoload": {
+		"classmap": [
+			"application/services/"
+		]
+	},
 	"require-dev": {
 		"mikey179/vfsstream": "1.1.*",
-		"phpunit/phpunit": "4.* || 5.*"
+		"phpunit/phpunit": "^9"
 	}
 }

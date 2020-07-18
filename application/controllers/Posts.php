@@ -1,26 +1,32 @@
 <?
 defined('BASEPATH') || exit('No direct script access allowed');
 
-class Posts extends CI_Controller
+class Posts extends FLEX_Controller
 {
+    private $postService;
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('PostModel');
+        $this->postService = $this->load->service('PostService');
     }
 
-
-    public function index($keyword = '')
+    public function index($searchType = 'all', $searchKeyword = '', $pageIndex = 1, $pageSize = 10)
     {
-        $data['model'] = $this->PostModel->findByKeyword($keyword);
-        $this->load->view('posts/list', $data);
+        $posts = $this->postService->getPosts($searchType, $searchKeyword, $pageIndex, $pageSize);
+
+        $this->load->viewmodel('posts/PostListViewModel');
+        $viewModel = new PostListViewModel($posts, $searchType, $searchKeyword, $pageIndex, $pageSize);
+
+        $this->load->clientTemplate('posts/list', $viewModel);
     }
 
-    public function detail($idx)
+    public function detail($postId)
     {
-        $data['model'] = $this->PostModel->getOne($idx);
-        $this->load->view('posts/detail', $data);
+        $this->load->viewmodel('posts/PostDetailViewModel');
+        $viewModel = new PostDetailViewModel($this->postService->getPost($postId));
+        
+        $this->load->clientTemplate('posts/detail', $viewModel);
     }
 }
 

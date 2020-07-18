@@ -1,2 +1,2 @@
 <?
-var_dump($model);
+var_dump($post);
