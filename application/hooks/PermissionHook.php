@@ -3,25 +3,56 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class PermissionHook
 {
+    /**
+     * FLEX Controller
+     * 
+     * @var FLEX_Controller
+     */
+    private $CI;
+
+    public function __construct()
+    {
+        $this->CI = &get_instance();
+    }
+
+
+    /**
+     * 개인 권한 체크
+     * 
+     * @param array $privateBlocks 개인 권한으로만 들어갈 수 있는 페이지 점검
+     * @return void 권한 없으면 403 에러 발생
+     */
     public function checkPrivatePermission(array $privateBlocks)
     {
-        $CI = &get_instance();
+        if ($this->CI->isAdminRequest()) {
+            return;
+        }
 
-        if (!$this->hasPermission($CI->session, $CI->router, $privateBlocks)) {
-            show_error('허용권한이 없습니다', 403, 'Permission Denied');
+        foreach ($privateBlocks as $class => $actions) {
+            if (
+                strtolower($class) == strtolower($this->CI->router->class)
+                && in_array($this->CI->router->method, $actions)
+                && !$this->CI->session->isSignIn()
+            ) {
+                show_error('접근 권한이 없습니다', 403, 'Permission Denied');
+            }
         }
     }
 
-    private function hasPermission(FLEX_Session $session, CI_Router $router, array $privateBlocks) : bool
+    /**
+     * 관리자 페이지 권한 체크
+     * 
+     * @return void 
+     */
+    public function checkAdminPermission()
     {
-        foreach ($privateBlocks as $class => $actions) {
-            if (strtolower($class) == strtolower($router->class)
-                && in_array($router->method, $actions) && !$session->isSignIn()) {
-                return false;
-            }
+        if (!$this->CI->isAdminRequest()) {
+            return;
         }
 
-        return true;
+        if (!$this->CI->session->isAdmin()) {
+            show_error('접근 권한이 없습니다', 403, 'Permission Denied');
+        }
     }
 }
 

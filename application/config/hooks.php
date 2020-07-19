@@ -23,3 +23,10 @@ $hook['post_controller_constructor'] = array(
     'filepath' => 'hooks',
     'params'   => $privateBlocks
 );
+
+$hook['post_controller_constructor'] = array(
+    'class'    => 'PermissionHook',
+    'function' => 'checkAdminPermission',
+    'filename' => 'PermissionHook.php',
+    'filepath' => 'hooks'
+);

@@ -7,14 +7,33 @@ class FLEX_Session extends CI_Session {
 
     /**
      * 
-     * @var MemberService
+     * @var MemberModel
      */
-    private $memberService;
+    private $member;
     
     public function __construct(array $params = array())
     {
         parent::__construct($params);
-        $this->memberService = $params['MemberService'];
+    }
+
+    /**
+     * 로그인 상태로 만듬
+     * @param MemberModel $member 
+     * @return void 
+     */
+    public function signIn(MemberModel $member)
+    {
+        $this->member = $member;
+        $this->set_userdata(FLEX_Session::KEY_SIGNIN, $member);
+    }
+
+    public function getMember($forcedRefresh = false)
+    {
+        if (!$this->member || $forcedRefresh) {
+            $this->member = $this->userdata(FLEX_Session::KEY_SIGNIN);
+        }
+
+        return $this->member;
     }
 
     /**
@@ -23,9 +42,17 @@ class FLEX_Session extends CI_Session {
      */
     public function isSignIn() : bool
     {
-        return $this->userdata(FLEX_Session::KEY_SIGNIN) !== null;
+        return $this->getMember() !== null;
     }
 
+    /**
+     * 로그인 된 사람이 관리자인지 점검
+     * @return bool 
+     */
+    public function isAdmin() : bool
+    {
+        return $this->member !== null && $this->member->role === 'admin';
+    }
 }
 
 /* End of file FLEX_Session.php */
