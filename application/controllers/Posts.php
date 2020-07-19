@@ -8,7 +8,8 @@ class Posts extends FLEX_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->postService = $this->load->service('PostService');
+        $this->load->model('PostModel');
+        $this->postService = $this->load->service('PostService', array('PostModel' => $this->PostModel));
     }
 
     public function index($searchType = 'all', $searchKeyword = '', $pageIndex = 1, $pageSize = 10)

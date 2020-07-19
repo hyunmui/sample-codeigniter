@@ -7,24 +7,18 @@ class FLEX_Loader extends CI_Loader
 
     static $iocContainer = array();
 
-    public function __construct()
+    public function service($serviceName, $param = null)
     {
-        parent::__construct();
-
-        require_once(APPPATH . 'core/FLEX_Service.php');
-    }
-
-    public function service($serviceName, $subDirName = '', $param = null)
-    {
-        require_once(APPPATH . '/services/' . $subDirName . '/' . $serviceName . '.php');
+        $service = strpos($serviceName, '/') > -1 ? end(explode('/', $serviceName)) : $serviceName;
+        require_once(APPPATH . '/services/' .  $serviceName . '.php');
         
         if (array_key_exists($serviceName, FLEX_Loader::$iocContainer)) {
             return FLEX_Loader::$iocContainer[$serviceName];
         }
 
-        $service = $param == null ? new $serviceName(get_instance()) : new $serviceName(get_instance(), $param);
-        FLEX_Loader::$iocContainer[] = $service;
-        return $service;
+        $serviceInstance = $param == null ? new $service() : new $service($param);
+        FLEX_Loader::$iocContainer[] = $serviceInstance;
+        return $serviceInstance;
     }
 
     public function viewmodel($viewModelName)

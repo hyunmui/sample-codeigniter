@@ -95,3 +95,26 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+$db['test'] = array(
+	// 'dsn'	=> '',
+	'hostname' => 'localhost,32768',
+	//'port' => 32768,
+	'username' => 'web_user',
+	'password' => '1q2w3e!@',
+	'database' => 'TEST',
+	'dbdriver' => 'sqlsrv',
+	// 'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	// 'dbcollat' => 'utf8_general_ci',		// only mysql
+	// 'swap_pre' => '',
+	// 'encrypt' => FALSE,
+	// 'compress' => FALSE,		// only mysql
+	'stricton' => TRUE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);

@@ -135,5 +135,6 @@ $RECYCLE.BIN/
 
 # Custom node_modules Directory
 public/lib
+ci_session
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,phpunit,windows,codeigniter,visualstudiocode,yarn

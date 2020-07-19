@@ -5,7 +5,10 @@
   "cSpell.words": [
     "APPPATH",
     "BASEPATH",
+    "SIGNIN",
     "customloader",
+    "sess",
+    "userdata",
     "viewmodel",
     "viewmodelloader",
     "viewmodels"

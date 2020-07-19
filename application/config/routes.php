@@ -54,9 +54,11 @@ $route['default_controller'] = 'Gallery';
 $route['[pP]osts/(:num)'] = 'posts/detail/$1';
 $route['[pP]osts/(:any)'] = 'posts/index/$1';
 
-$route['gall/(:any)'] = 'gallery/index/$1';
+$route['gall/(:any)'] = 'gallery/page/$1';
 
-$route['member/sign[-_]in'] = 'member/signIn';
+$route['member/sign[-_]in']['GET'] = 'member/signIn';
+$route['member/signout'] = 'member/signOut';
+$route['member/(:any)']['GET'] = 'member/detail/$1';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

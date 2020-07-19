@@ -1,16 +1,17 @@
 <?php
 
-class PostService extends FLEX_Service
+class PostService
 {
-    
-    public function __construct($CI)
-    {
-        parent::__construct($CI);
+    private $postModel;
 
-        if ($CI) {
-            $this->CI = $CI;
-            $this->CI->load->model('PostModel');
-        }
+    /**
+     * 
+     * @param array $injectParams 'PostModel'
+     * @return void 
+     */
+    public function __construct($injectParams)
+    {
+        $this->postModel = $injectParams['PostModel'];
     }
 
     /**
@@ -24,7 +25,7 @@ class PostService extends FLEX_Service
      */
     public function getPosts($searchType, $searchKeyword, $pageIndex, $pageSize)
     {
-        return $this->CI->PostModel->findPosts($searchType, $searchKeyword, $pageIndex, $pageSize);
+        return $this->postModel->findPosts($searchType, $searchKeyword, $pageIndex, $pageSize);
     }
 
     /**
@@ -35,6 +36,6 @@ class PostService extends FLEX_Service
      */
     public function getPost($postId)
     {
-        return $this->CI->PostModel->getOne($postId);
+        return $this->postModel->getOne($postId);
     }
 }
