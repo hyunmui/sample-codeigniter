@@ -27,7 +27,7 @@ class FLEX_Session extends CI_Session {
         $this->set_userdata(FLEX_Session::KEY_SIGNIN, $member);
     }
 
-    public function getMember($forcedRefresh = false)
+    public function signedMember($forcedRefresh = false)
     {
         if (!$this->member || $forcedRefresh) {
             $this->member = $this->userdata(FLEX_Session::KEY_SIGNIN);
@@ -42,7 +42,7 @@ class FLEX_Session extends CI_Session {
      */
     public function isSignIn() : bool
     {
-        return $this->getMember() !== null;
+        return $this->signedMember() !== null;
     }
 
     /**

@@ -6,6 +6,7 @@
     "APPPATH",
     "BASEPATH",
     "SIGNIN",
+    "SIGNOUT",
     "customloader",
     "sess",
     "userdata",

@@ -52,13 +52,13 @@ defined('BASEPATH') || exit('No direct script access allowed');
 $route['default_controller'] = 'Gallery';
 
 $route['[pP]osts/(:num)'] = 'posts/detail/$1';
-$route['[pP]osts/(:any)'] = 'posts/index/$1';
 
-$route['gall/(:any)'] = 'gallery/page/$1';
+$route['[gG]all/(:any)'] = 'gallery/page/$1';
 
-$route['member/sign[-_]in']['GET'] = 'member/signIn';
-$route['member/signout'] = 'member/signOut';
-$route['member/(:any)']['GET'] = 'member/detail/$1';
+$route['[mM]ember/sign-in']['GET'] = 'member/signIn';
+$route['[mM]ember/sign-in']['POST'] = 'member/processSignIn';
+$route['[mM]ember/sign-out'] = 'member/signOut';
+$route['[mM]ember/(:any)']['GET'] = 'member/detail/$1';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

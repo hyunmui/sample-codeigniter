@@ -13,6 +13,12 @@ class MemberService {
         $this->memberModel = $injectParams['MemberModel'];
     }
 
+    public function signIn($memberId, $password)
+    {
+        $member = $this->memberModel->findById($memberId);
+        return $member->password === $password ? $member : null;
+    }
+
 }
 
 /* End of file MemberService.php */
