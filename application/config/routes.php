@@ -51,13 +51,31 @@ defined('BASEPATH') || exit('No direct script access allowed');
 */
 $route['default_controller'] = 'Gallery';
 
+# post
+$route['[pP]osts/write/(:any)']['GET'] = 'posts/write/$1';
+$route['[pP]osts/write/(:any)']['POST'] = 'posts/writeProcess/$1';
+$route['[pP]osts/modify/(:num)']['GET'] = 'posts/modify/$1';
+$route['[pP]osts/modify/(:num)']['POST'] = 'posts/modifyProcess/$1';
+$route['[pP]osts/remove/(:num)']['POST'] = 'posts/remove/$1';
 $route['[pP]osts/(:num)'] = 'posts/detail/$1';
 
+# gallery
+$route['[gG]all/(:any)/create']['GET'] = 'gallery/create/$1';
+$route['[gG]all/(:any)/create']['POST'] = 'gallery/createProcess/$1';
+$route['[gG]all/(:any)/update']['GET'] = 'gallery/update/$1';
+$route['[gG]all/(:any)/update']['POST'] = 'gallery/updateProcess/$1';
+$route['[gG]all/(:any)/remove']['GET'] = 'gallery/remove/$1';
+$route['[gG]all/(:any)/remove']['POST'] = 'gallery/removeProcess/$1';
 $route['[gG]all/(:any)'] = 'gallery/page/$1';
 
+# member
 $route['[mM]ember/sign-in']['GET'] = 'member/signIn';
-$route['[mM]ember/sign-in']['POST'] = 'member/processSignIn';
+$route['[mM]ember/sign-in']['POST'] = 'member/signInProcess';
 $route['[mM]ember/sign-out'] = 'member/signOut';
+$route['[mM]ember/update']['GET'] = 'member/update';
+$route['[mM]ember/update']['POST'] = 'member/updateProcess';
+$route['[mM]ember/leave']['GET'] = 'member/leave';
+$route['[mM]ember/leave']['POST'] = 'member/leaveProcess';
 $route['[mM]ember/(:any)']['GET'] = 'member/detail/$1';
 
 $route['404_override'] = '';
