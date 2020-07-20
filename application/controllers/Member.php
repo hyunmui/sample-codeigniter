@@ -43,7 +43,7 @@ class Member extends FLEX_Controller
     public function signOut()
     {
         $this->session->sess_destroy();
-        redirect('/');
+        redirect('/member/sign-in');
     }
 }
 

@@ -1,7 +1,8 @@
 <?
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class FLEX_Session extends CI_Session {
+class FLEX_Session extends CI_Session
+{
 
     const KEY_SIGNIN = 'member';
 
@@ -10,7 +11,7 @@ class FLEX_Session extends CI_Session {
      * @var MemberModel
      */
     private $member;
-    
+
     public function __construct(array $params = array())
     {
         parent::__construct($params);
@@ -24,13 +25,13 @@ class FLEX_Session extends CI_Session {
     public function signIn(MemberModel $member)
     {
         $this->member = $member;
-        $this->set_userdata(FLEX_Session::KEY_SIGNIN, $member);
+        $this->set_userdata(FLEX_Session::KEY_SIGNIN, json_encode($member, JSON_UNESCAPED_UNICODE));
     }
 
-    public function signedMember($forcedRefresh = false)
+    public function signedMember($forcedRefresh = false): MemberModel
     {
         if (!$this->member || $forcedRefresh) {
-            $this->member = $this->userdata(FLEX_Session::KEY_SIGNIN);
+            $this->member = MemberModel::convertFromJson($this->userdata(FLEX_Session::KEY_SIGNIN));
         }
 
         return $this->member;
@@ -40,7 +41,7 @@ class FLEX_Session extends CI_Session {
      * 사용자 상태가 Login 상태인지 점검한다
      * @return false 
      */
-    public function isSignIn() : bool
+    public function isSignIn(): bool
     {
         return $this->signedMember() !== null;
     }
@@ -49,7 +50,7 @@ class FLEX_Session extends CI_Session {
      * 로그인 된 사람이 관리자인지 점검
      * @return bool 
      */
-    public function isAdmin() : bool
+    public function isAdmin(): bool
     {
         return $this->member !== null && $this->member->role === 'admin';
     }

@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	// 'dsn'	=> '',
-	'hostname' => 'localhost,32768',
+	'hostname' => 'docker.localhost, 32769',
 	//'port' => 32768,
 	'username' => 'web_user',
 	'password' => '1q2w3e!@',

@@ -47,10 +47,25 @@ class MemberModel extends CI_Model
      */
     public $update_date;
 
-    public function findById(string $memberId) : MemberModel
+    public function findById(string $memberId): MemberModel
     {
         $query = $this->db->get_where(self::TABLE_NAME, array('member_id' => $memberId));
         return $query->row(0, 'MemberModel');
+    }
+
+    public static function convertFromJson(string $json): MemberModel
+    {
+        $member = new MemberModel();
+        $stdClass = json_decode($json);
+
+        $reflector = new ReflectionClass('MemberModel');
+        $properties = $reflector->getProperties();
+
+        foreach ($properties as $prop) {
+            $member->{$prop->getName()} = $stdClass->{$prop->getName()};
+        }
+
+        return $member;
     }
 }
 
