@@ -1,2 +1,12 @@
-version: 3.2
+version: '3.2'
 
+services:
+  mssql:
+    image: microsoft/mssql-server-linux
+    ports: 
+      - 32769:1433
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=1q2w3e!@
+      - MSSQL_COLLATION=Korean_Wansung_CI_AI
