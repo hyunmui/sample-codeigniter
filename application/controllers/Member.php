@@ -54,6 +54,24 @@ class Member extends FLEX_Controller
     }
 
     /**
+     * 회원가입
+     * @return void 
+     */
+    public function signUp()
+    {
+        # code...
+    }
+
+    /**
+     * 회원가입 처리
+     * @return void 
+     */
+    public function signUpProcess()
+    {
+        # code...
+    }
+
+    /**
      * 내 정보
      * @param string $memberId 
      * @return void 
